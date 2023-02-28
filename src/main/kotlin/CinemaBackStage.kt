@@ -1,6 +1,8 @@
 package CinemaSimulation
 
 
+
+
 var rowNumber = 0
 var columnNumber = 0
 
@@ -33,17 +35,12 @@ val menuYazisi = """
 
 
 fun cinemaStart() {
-    println("Enter the number of rows:")
-    rowNumber = readln().toInt()
-    if (rowNumber > 9) rowNumber = 1
 
-    println("Enter the number of seats in each row:")
-    columnNumber = readln().toInt()
-    if (columnNumber > 9) columnNumber = 1
+    takeRowAndColumnNum()
 
     println()
 
-    rowOfSeat = MutableList(rowNumber) { mutableListOf<String>() }
+    //rowOfSeat = MutableList(rowNumber) { mutableListOf<String>() }
 
     val roomSize = columnNumber * rowNumber
 
@@ -81,6 +78,42 @@ fun cinemaStart() {
 
         }
     }
+
+}
+
+
+fun takeRowAndColumnNum() {
+    try {
+        println("Enter the number of rows:")
+        rowNumber = readln().toInt()
+        if (rowNumber > 9) {
+            //println("RowIF")
+            throw Exception("number can't be over 9")
+            //rowNumber = 1
+        }
+
+
+
+        println("Enter the number of seats in each row:")
+        columnNumber = readln().toInt()
+        if (columnNumber > 9) {
+           // println("ColumnIF")
+            throw Exception("number can't be over 9")
+            //columnNumber = 1
+            }
+
+
+        println()
+        rowOfSeat = MutableList(rowNumber) { mutableListOf<String>() }
+    }catch (illegal: IllegalArgumentException) {
+        takeRowAndColumnNum()
+    }
+    catch (e: Exception)
+    {
+        println(e.message)
+        takeRowAndColumnNum()
+    }
+
 
 }
 
